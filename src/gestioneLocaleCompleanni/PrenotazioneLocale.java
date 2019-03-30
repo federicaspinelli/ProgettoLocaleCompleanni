@@ -35,17 +35,16 @@ public class PrenotazioneLocale implements Serializable {
 	//			- affitto del locale con servizio di catering
 	//			- affitto del locale con servizio di catering e animazione
 	
-	//vedere se si può lasciare come private impostato
+	//vedere se si può lasciare come private impostanto
 	//getter e setter
 	protected String formaPrenotazione;	
-	/**** NON SERVE ANCHE QUI, basta in PrenotazioneCatering****/
-	//private int bambini;//numero bambini invitati
+	private int bambini;//numero bambini invitati
 	// costruttore
 	// definisce un oggetto prenotazione che prevede semplice affitto del locale
-	public PrenotazioneLocale(Date dataFesta, String cliente) {
+	public PrenotazioneLocale(Date dataFesta, String cliente, int numeroBambini) {
 		this.dataFesta = dataFesta;
 		this.nomeCliente = cliente;
-		//this.bambini = numeroBambini; //numero bambini invitati
+		this.bambini=numeroBambini; //numero bambini invitati
 		this.formaPrenotazione = "Affitto locale";		
 	}
 	
@@ -61,11 +60,10 @@ public class PrenotazioneLocale implements Serializable {
 		return this.nomeCliente;
 	}
 	
-	/**** NON SERVE ANCHE QUI, basta in PrenotazioneCatering****/
 	//Metodo get che restituisce il numero dei bambini invitati
-	//	public int getnumeroBambini() {
-	//	    return this.bambini;
-	//	}
+		public int getNumeroBambini() {
+		    return this.bambini;
+		}
 	
 	// Restituisce forma di prenotazione
 	public String getformaPrenotazione () {
@@ -84,7 +82,7 @@ public class PrenotazioneLocale implements Serializable {
 	public void getDati() {
 		//qui bisogna usare i "get" da definire nella superclasse!!!
 		System.out.println("Prenotazione effettuata da:"+this.getCliente());
-		//System.out.println("per "+ this.getnumeroBambini());
+		System.out.println("per "+ this.getNumeroBambini());
 		System.out.println(" invitati, per il giorno "+ this.getData());
 		System.out.println("La festa di compleanno include servizi di :"+this.getformaPrenotazione());//solo affitto, catering o catering e animazione
 	}

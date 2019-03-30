@@ -4,7 +4,11 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Scanner;//scanner
 import java.util.Vector;//vector
-import java.text.*;//per date
+
+import concessionaria_auto.Auto_nuove;
+
+//per date
+import java.text.*;
 
 
 // buffered Input e Output
@@ -52,8 +56,8 @@ public void letturaPrenotazione() {
 		System.out.println(e); 
 		
 	} catch ( IOException e) {
-		System . out . println (" ERRORE di I/O");
-		System . out . println (e);
+		System.out . println (" ERRORE di I/O");
+		System. out . println (e);
 	}
 	
 	// stampa quanto letto dal file
@@ -108,10 +112,10 @@ public void MenuElencoPrenotazioni(){
 		System.out.println("[S] Salva dati: "); 
 		
 		//scelta per uscire dal terminale
-		System.out.println("[U] Uscire dal terminale");
+		System.out.println("[*] Uscire dal terminale");
 		System.out.println("");
-		System.out.print("Operazione selezionata: ");
-		// chiedo all'utente di inserire una lettera, corrispondente a una precisa funzione
+		System.out.println("Scegliere un'opzione");
+		//input utente, considero il primo carattere immesso
 		scelta = input.next().charAt(0);
 		System.out.println("");
 		switch (scelta) {  // in base alla lettera inserita dovra' attivarsi una precisa funzione (un preciso metodo verra' richiamato), come indicato nelle istruzioni sopra
@@ -322,6 +326,9 @@ System.out.println("ARRIVEDERCI, ALLA PROSSIMA FESTA!");
 		 System.out.println("   [A] Visualizza solo le prenotazioni con animazione");
 		 System.out.println("   [*] Menu principale");
 		//chiedo di scegliere un opzione
+		 System.out.println("");
+		 System.out.println("Scegliere un'opzione");
+		//input utente, considero il primo carattere immesso
 		 char opzione=input.next().charAt(0);
 		 System.out.println(" ");
 		//casistica per ogni selezione
@@ -467,9 +474,10 @@ System.out.println("ARRIVEDERCI, ALLA PROSSIMA FESTA!");
 		 System.out.println("[1] Aggiungi una prenotazione con solo affitto");
 		 System.out.println("[2] Aggiungi una prenotazione con servizio di catering");
 		 System.out.println("[3] Aggiungi una prenotazione con servizio di catering e animazione");
-		 System.out.println("[U] Torna al menu principale");
+		 System.out.println("[*] Menu principale");
 		 System.out.println("");
-		 System.out.println("");
+		 System.out.println("Scegliere un'opzione");
+		 
 		 //input utente
 		 char opzione=input.next().charAt(0);
 		 ///dichiarazione variabili per il metodo
@@ -537,11 +545,106 @@ System.out.println("ARRIVEDERCI, ALLA PROSSIMA FESTA!");
 	}
 	
 	private void ricercaPrenotazione() {
-		///TODO
+		///opzioni per la ricerca
+		 System.out.println("[C]Ricerca prenotazione per cliente");
+		 System.out.println("");
+		 //TODO RICERCA PER DATA--> FEDERICA
+		 System.out.println("[D] Ricerca prenotazione per data");
+		 System.out.println("[*] Menu principale");
+		 System.out.println("");
+		 //chiedo all'utente di scegliere un'opzione tra le disponibili
+		 System.out.println("Scegliere un'opzione");
+		//input utente, considero il primo carattere immesso
+		 char opzione=input.next().charAt(0);
+		 System.out.println("");
+		 //switch ricerca
+		 switch (opzione){
+		 		//ricerca prenotazione per cliente
+		 		case 'C':
+		 			String nome, parteNome;
+		 			//vettore vuoto, serve a contenere le prenotazioni per ogni cliente
+		 			PrenotazioneLocale prenotazione;//TODO chiarire a cosa serve
+		 			Vector <PrenotazioneLocale> prenotazionePerCliente= new Vector <PrenotazioneLocale>();
+		 			System.out.println("Inserisci il nome del cliente (o parte di esso) per cercare la prenotazione: ");
+		 
+		 			nome=input.next();//stringa dell'intero nome cliente
+		 			parteNome= "BLA";// TODO parte di nome, lavorarci. NON USARE SUBSTRING
+		 					//MA MAGARI: CONTAINS O INDEXOF
+		 					//parte del nome del cliente
+		 			
+		 			///PER RICERCA TRAMITE NOME INTERO
+		 			//se la stringa in input non equivale a un nome "intero"
+			    	  if (nome.equals(parteNome)==false) {
+			    		  //scansione su elenco
+				    		 for (int i=0; i<elenco.size(); i++) {
+				    		     if (elenco.get(i) instanceof PrenotazioneLocale) {
+				    		    	// TODO CONTROLLARE SE IL TYPE CAST SERVE NEL NOSTRO CASO! (stiamo lavorando su una superclasse!)
+				    			     prenotazione = (PrenotazioneLocale)elenco.get(i);  
+				    			     //controllo se la stringa inserita in input corrisponde al nome del cliente
+				    			     if (prenotazione.getCliente().equals(nome)) {  
+				    			    	 //se uguale, aggiungo la prenotazione al vettore creato 
+				    			    	 prenotazionePerCliente.add(prenotazione);
+				    			     }
+				    		     }
+				    	     }
+				       }else{ 
+				    	   ///PER RICERCA TRAMITE PARTE DEL NOME
+				    	   //se in input è stata inserita un'abbreviazione e non il nome intero
+				    	   //scansione su elenco
+				    	   for (int i=0; i<elenco.size(); i++) { 
+				    		   if (elenco.get(i) instanceof PrenotazioneLocale) {
+				    		    	/// TODO CONTROLLARE SE IL TYPE CAST SERVE NEL NOSTRO CASO! 
+				    			   ///(stiamo lavorando su una superclasse!)
+					    	       prenotazione = (PrenotazioneLocale)elenco.get(i);
+				    			     //controllo se la stringa inserita in input è una sottostringa di nome
+					    	       ///TODO controllo con contains, vedere quale opzione è la migliore
+					    	       // if (nome.contains(parteNome))
+					    		   if (prenotazione.getCliente().contains(parteNome)){
+					    			  prenotazionePerCliente.add(prenotazione);
+					    		   }
+				
+//					    	       ///ESEMPIO CON PRIME TRE LETTERE
+					    		   ///TODO RIMUOVERE QUESTO ESEMPIO, SERVE SOLO PER CAPIRE
+//					    	       if (prenotazione.getCliente().substring(0, 3).equals(parteNome)) {  // la guardia cambia: devo controllare che le prime tre lettere del cliente dell'auto siano uguali alle tre inserite in input
+//					    		      prenotazionePerCliente.add(prenotazione);
+//					    		   }
+					    		}
+					    	 }
+				         }
+			    	  
+				    	 System.out.println("");
+				    	 //se trovo almeno una prenotazione per quel cliente
+				    	 if (prenotazionePerCliente.size()>0) { 
+				    	    for (int i=0; i<prenotazionePerCliente.size(); i++) {
+				    		   System.out.println("Prenotazione: " + (i+1));
+				    		   //mostro i risultati
+				    		   prenotazionePerCliente.get(i).getDati();
+				    		   System.out.println("");
+				    	    }
+				    	 }
+				    	 else System.out.println("Nessuna prenotazione per questo cliente!");  // altrimenti il sistema da' un feedback dicendo che non ci sono attualmente clienti con quel nome
+				    	 break;
+				    	 
+				    	 
+				    	 ////TODO AGGIUNGERE CASO DATA
+				    	 ////TODO AGGIUNGERE DEFAULT
+				    	 
+				    	 
+				    	 
+		 }
+		 
 	}
 	
-	private void modificaPrenotazioni() {
-		
-	}
+	
+	
+	
+	
+	
+	
+	
+//	//FACOLTATIVO
+//	private void modificaPrenotazioni() {
+//		
+//	}
 }
 
