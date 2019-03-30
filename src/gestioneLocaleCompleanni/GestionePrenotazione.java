@@ -593,12 +593,21 @@ System.out.println("ARRIVEDERCI, ALLA PROSSIMA FESTA!");
 				    	   //scansione su elenco
 				    	   for (int i=0; i<elenco.size(); i++) { 
 				    		   if (elenco.get(i) instanceof PrenotazioneLocale) {
-				    		    	// TODO CONTROLLARE SE IL TYPE CAST SERVE NEL NOSTRO CASO! (stiamo lavorando su una superclasse!)
+				    		    	/// TODO CONTROLLARE SE IL TYPE CAST SERVE NEL NOSTRO CASO! 
+				    			   ///(stiamo lavorando su una superclasse!)
 					    	       prenotazione = (PrenotazioneLocale)elenco.get(i);
 				    			     //controllo se la stringa inserita in input è una sottostringa di nome
-					    		   if (prenotazione.getCliente().substring(0, 3).equals(parteNome)) {  // la guardia cambia: devo controllare che le prime tre lettere del cliente dell'auto siano uguali alle tre inserite in input
-					    		      prenotazionePerCliente.add(prenotazione);
+					    	       ///TODO controllo con contains, vedere quale opzione è la migliore
+					    	       // if (nome.contains(parteNome))
+					    		   if (prenotazione.getCliente().contains(parteNome)){
+					    			  prenotazionePerCliente.add(prenotazione);
 					    		   }
+				
+//					    	       ///ESEMPIO CON PRIME TRE LETTERE
+					    		   ///TODO RIMUOVERE QUESTO ESEMPIO, SERVE SOLO PER CAPIRE
+//					    	       if (prenotazione.getCliente().substring(0, 3).equals(parteNome)) {  // la guardia cambia: devo controllare che le prime tre lettere del cliente dell'auto siano uguali alle tre inserite in input
+//					    		      prenotazionePerCliente.add(prenotazione);
+//					    		   }
 					    		}
 					    	 }
 				         }
