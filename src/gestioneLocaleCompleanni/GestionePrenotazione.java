@@ -56,8 +56,8 @@ public void letturaPrenotazione() {
 		System.out.println(e); 
 		
 	} catch ( IOException e) {
-		System.out . println (" ERRORE di I/O");
-		System. out . println (e);
+		System.out.println (" ERRORE di I/O");
+		System.out.println (e);
 	}
 	
 	// stampa quanto letto dal file
