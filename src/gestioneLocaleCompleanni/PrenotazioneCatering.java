@@ -1,24 +1,26 @@
 package gestioneLocaleCompleanni;
 import java.util.Date;//classe per la data
+import java.io.Serializable;
 
 //creo la sottoclasse PrenotazioneCatering, che estende la superclasse PrenotazioneLocale
-public class PrenotazioneCatering extends PrenotazioneLocale{
+public class PrenotazioneCatering extends PrenotazioneLocale implements Serializable {
 	//versione UID
 	static final long serialVersionUID=1;//cost. per distinguiere le v delle classi
 	
 	//proprietà degli obj PrenotazioneCatering
-	private Date dataFesta; //cambiato da data --> dataFesta
-	private String cliente;
+	/**** Cambiato nome variabile d'istanza****/
+	/****Varibili d'istanza data e cliente non necessarie perchè estratte da superclasse PrenotazioneLocale****/
+	//protected Date data; //cambiato da dataFesta --> a data
+	//protected String cliente;
 	private int bambini;//numero bambini invitati
 	
 	//costruttore degli obj PrenotazioneCatering
-	public PrenotazioneCatering (Date dataFesta, String cliente, int numeroBambini ) {
-		super (dataFesta, cliente); //eredito dalla superclasse
+	public PrenotazioneCatering (Date dataFesta, String nomeCliente, int numeroBambini ) {
+		super(dataFesta, nomeCliente); //eredito dalla superclasse
 		
 		//proprietà della sottoclasse PrenotazioneCatering
 		this.bambini=numeroBambini; //numero bambini invitati
-		this.formaPrenotazione="Affitto locale con catering";
-		
+		this.formaPrenotazione="Affitto locale con catering";		
 
 }
 	// Metodi get per usare le variabili private
@@ -38,11 +40,10 @@ public class PrenotazioneCatering extends PrenotazioneLocale{
 	//Metodo get che restituisce la data
 	//dà errore perchè bisogna cambiare nella superclasse
 	public Date getData() {
-	    return this.dataFesta;
+	  return this.data;
 	}
 
 	//Metodo get che restituisce la forma di prenotazione
-
 	 public String getformaPrenotazione() {
 	    return this.formaPrenotazione;
 	 }

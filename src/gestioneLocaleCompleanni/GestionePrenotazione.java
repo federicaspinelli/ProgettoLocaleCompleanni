@@ -1,14 +1,8 @@
 package gestioneLocaleCompleanni;
-
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Scanner;//scanner
 import java.util.Vector;//vector
-
-import concessionaria_auto.Auto_nuove;
-
-//per date
-import java.text.*;
+import java.text.*;//per date
 
 
 // buffered Input e Output
@@ -36,9 +30,9 @@ public class GestionePrenotazione {
 	Scanner input= new Scanner (System.in);
 	//costruttore della classe
 	public GestionePrenotazione() {
-		//per ora è vuoto perchè viene inizializzato nel metodo letturaPrenotazione
+	//Costruttore dell'oggetto PrenotazioneLocale, per ora è vuoto perchè viene inizializzato nel metodo letturaPrenotazione
 	} 
-public void letturaPrenotazione() {
+	public void letturaPrenotazione() {
 	//metodo per la lettura degli oggetti PrenotazioneLocale creati
 	try {
 		//nuovo stream (come da slides), salvataggio di vettore (2), p30
@@ -561,59 +555,96 @@ System.out.println("ARRIVEDERCI, ALLA PROSSIMA FESTA!");
 		 switch (opzione){
 		 		//ricerca prenotazione per cliente
 		 		case 'C':
-		 			String nome, parteNome;
+		 			String nomeInput;
 		 			//vettore vuoto, serve a contenere le prenotazioni per ogni cliente
 		 			PrenotazioneLocale prenotazione;//TODO chiarire a cosa serve
 		 			Vector <PrenotazioneLocale> prenotazionePerCliente= new Vector <PrenotazioneLocale>();
 		 			System.out.println("Inserisci il nome del cliente (o parte di esso) per cercare la prenotazione: ");
-		 
-		 			nome=input.next();//stringa dell'intero nome cliente
-		 			parteNome= "BLA";// TODO parte di nome, lavorarci. NON USARE SUBSTRING
-		 					//MA MAGARI: CONTAINS O INDEXOF
-		 					//parte del nome del cliente
+		 			nomeInput=input.next();//stringa dell'intero nome cliente
 		 			
 		 			///PER RICERCA TRAMITE NOME INTERO
-		 			//se la stringa in input non equivale a un nome "intero"
-			    	  if (nome.equals(parteNome)==false) {
-			    		  //scansione su elenco
+		 			//se la stringa in input non equivale a un nome in elenco
 				    		 for (int i=0; i<elenco.size(); i++) {
-				    		     if (elenco.get(i) instanceof PrenotazioneLocale) {
-				    		    	// TODO CONTROLLARE SE IL TYPE CAST SERVE NEL NOSTRO CASO! (stiamo lavorando su una superclasse!)
+						 			//controllo se stiamo lavorando su un'istanza di PrenotazioneLocale
+				    			 if (elenco.get(i) instanceof PrenotazioneLocale) {
 				    			     prenotazione = (PrenotazioneLocale)elenco.get(i);  
 				    			     //controllo se la stringa inserita in input corrisponde al nome del cliente
-				    			     if (prenotazione.getCliente().equals(nome)) {  
+				    			     //SE CIO CHE ABBIAMO INSERITO IN INPUT CORRISPONDE A UN NOME CLIENTE INTERO
+				    			     //NEL NOSTRO ELENCO
+				    			     if (prenotazione.getCliente().equals(nomeInput)) {//metodo equals per vedere se cio che abbiamo inserito è uguale a un nome cliente in elenco 
 				    			    	 //se uguale, aggiungo la prenotazione al vettore creato 
 				    			    	 prenotazionePerCliente.add(prenotazione);
-				    			     }
+				    			     
+				    			    //SE CIO CHE ABBIAMO INSERITO IN INPUT CORRISPONDE A PARTE DI UN NOME CLIENTE IN ELENCO
+					    			  }else if (prenotazione.getCliente().contains(nomeInput)) {///uso il metodo contains per controllare se quei caratteri sono presenti nel nome
+							    		prenotazionePerCliente.add(prenotazione);
+					    			  } 
+				    			     
+				    			     
+				    			     ///se non dovesse andare, trasformare il ramo else-if in un altro for
 				    		     }
 				    	     }
-				       }else{ 
-				    	   ///PER RICERCA TRAMITE PARTE DEL NOME
-				    	   //se in input è stata inserita un'abbreviazione e non il nome intero
-				    	   //scansione su elenco
-				    	   for (int i=0; i<elenco.size(); i++) { 
-				    		   if (elenco.get(i) instanceof PrenotazioneLocale) {
-				    		    	/// TODO CONTROLLARE SE IL TYPE CAST SERVE NEL NOSTRO CASO! 
-				    			   ///(stiamo lavorando su una superclasse!)
-					    	       prenotazione = (PrenotazioneLocale)elenco.get(i);
-				    			     //controllo se la stringa inserita in input è una sottostringa di nome
-					    	       ///TODO controllo con contains, vedere quale opzione è la migliore
-					    	       // if (nome.contains(parteNome))
-					    		   if (prenotazione.getCliente().contains(parteNome)){
-					    			  prenotazionePerCliente.add(prenotazione);
-					    		   }
-				
-//					    	       ///ESEMPIO CON PRIME TRE LETTERE
-					    		   ///TODO RIMUOVERE QUESTO ESEMPIO, SERVE SOLO PER CAPIRE
-//					    	       if (prenotazione.getCliente().substring(0, 3).equals(parteNome)) {  // la guardia cambia: devo controllare che le prime tre lettere del cliente dell'auto siano uguali alle tre inserite in input
-//					    		      prenotazionePerCliente.add(prenotazione);
+//				       
+//				/////////!\\\\\\SE LA SOLUZIONE SU NON FUNZIONA, LAVORARE SU COME FATTO IN 
+				    		 	///SU QUANTO SEGUE (COMMENTATO)
+				    		//ricerca prenotazione per cliente
+//		 		case 'C':
+//		 			String nome, parteNome;
+//		 			//vettore vuoto, serve a contenere le prenotazioni per ogni cliente
+//		 			PrenotazioneLocale prenotazione;//TODO chiarire a cosa serve
+//		 			Vector <PrenotazioneLocale> prenotazionePerCliente= new Vector <PrenotazioneLocale>();
+//		 			System.out.println("Inserisci il nome del cliente (o parte di esso) per cercare la prenotazione: ");
+//		 
+//		 			nome=input.next();//stringa dell'intero nome cliente
+//		 			parteNome= "BLA";// TODO parte di nome, lavorarci. NON USARE SUBSTRING
+//		 					//MA MAGARI: CONTAINS O INDEXOF
+//		 					//parte del nome del cliente
+//		 			
+//		 			///PER RICERCA TRAMITE NOME INTERO
+//		 			//se la stringa in input non equivale a un nome "intero"
+//			    	  if (nome.equals(parteNome)==false) {
+//			    		  //scansione su elenco
+//				    		 for (int i=0; i<elenco.size(); i++) {
+//				    		     if (elenco.get(i) instanceof PrenotazioneLocale) {
+//				    		    	// TODO CONTROLLARE SE IL TYPE CAST SERVE NEL NOSTRO CASO! (stiamo lavorando su una superclasse!)
+//				    			     prenotazione = (PrenotazioneLocale)elenco.get(i);  
+//				    			     //controllo se la stringa inserita in input corrisponde al nome del cliente
+//				    			     if (prenotazione.getCliente().equals(nome)) {  
+//				    			    	 //se uguale, aggiungo la prenotazione al vettore creato 
+//				    			    	 prenotazionePerCliente.add(prenotazione);
+//				    			     }
+//				    		     }
+//				    	     }
+//				       }else{ 
+//				    	   ///PER RICERCA TRAMITE PARTE DEL NOME
+//				    	   //se in input è stata inserita un'abbreviazione e non il nome intero
+//				    	   //scansione su elenco
+//				    	   for (int i=0; i<elenco.size(); i++) { 
+//				    		   if (elenco.get(i) instanceof PrenotazioneLocale) {
+//				    		    	/// TODO CONTROLLARE SE IL TYPE CAST SERVE NEL NOSTRO CASO! 
+//				    			   ///(stiamo lavorando su una superclasse!)
+//					    	       prenotazione = (PrenotazioneLocale)elenco.get(i);
+//				    			     //controllo se la stringa inserita in input è una sottostringa di nome
+//					    	       ///TODO controllo con contains, vedere quale opzione è la migliore
+//					    	       // if (nome.contains(parteNome))
+//					    		   if (prenotazione.getCliente().contains(parteNome)){
+//					    			  prenotazionePerCliente.add(prenotazione);
 //					    		   }
-					    		}
-					    	 }
-				         }
-			    	  
+//				
+////					    	       ///ESEMPIO CON PRIME TRE LETTERE
+//					    		   ///TODO RIMUOVERE QUESTO ESEMPIO, SERVE SOLO PER CAPIRE
+////					    	       if (prenotazione.getCliente().substring(0, 3).equals(parteNome)) {  // la guardia cambia: devo controllare che le prime tre lettere del cliente dell'auto siano uguali alle tre inserite in input
+////					    		      prenotazionePerCliente.add(prenotazione);
+////					    		   }
+//					    		}
+//					    	 }
+//				         }
+				    		 
+				    		 
+				    		 
+				    		 
 				    	 System.out.println("");
-				    	 //se trovo almeno una prenotazione per quel cliente
+				    	 //se trovo almeno una prenotazione per il cliente cercato
 				    	 if (prenotazionePerCliente.size()>0) { 
 				    	    for (int i=0; i<prenotazionePerCliente.size(); i++) {
 				    		   System.out.println("Prenotazione: " + (i+1));

@@ -23,47 +23,50 @@ import java.util.Date;
 // Questa classe descrive un oggetto prenotazione che prevede semplice affitto del locale
 // implementa Serializable per poter essere salvata su file
 public class PrenotazioneLocale implements Serializable {
+
 	//versione UID
-	static final long SerialVersionUID = 1;
+	private static final long serialVersionUID = 1L;
 	
 	// proprieta oggetti della classe PrenotazioneLocale
-	private Date dataFesta;
+	/**** Cambiato nome variabile d'istanza****/
+	protected Date data;
 	// nomeCliente : definisce nome del cliente che effettua la prenotazione
-	private String nomeCliente;
+	protected String cliente;
 	// formaPrenotazione : definisce le diverse forme di prenotazione previste
 	//			- affitto del locale (cibo e animazione a carico dei genitori)
 	//			- affitto del locale con servizio di catering
 	//			- affitto del locale con servizio di catering e animazione
 	
-	//vedere se si può lasciare come private impostanto
+	//vedere se si può lasciare come private impostando
 	//getter e setter
 	protected String formaPrenotazione;	
-	private int bambini;//numero bambini invitati
+	/****numero bambini invitati non necessario per affitto semplice del locale****/
+	//private int bambini;//numero bambini invitati
+	
 	// costruttore
-	// definisce un oggetto prenotazione che prevede semplice affitto del locale
-	public PrenotazioneLocale(Date dataFesta, String cliente, int numeroBambini) {
-		this.dataFesta = dataFesta;
-		this.nomeCliente = cliente;
-		this.bambini=numeroBambini; //numero bambini invitati
+	// definisce un oggetto prenotazione che prevede semplice affitto del locale		 
+	public PrenotazioneLocale(Date dataFesta, String nomeCliente) {
+		this.data = dataFesta;
+		this.cliente = nomeCliente;
 		this.formaPrenotazione = "Affitto locale";		
 	}
 	
 	// Metodi get per usare le variabili private
-	 
+
 	// Restituisce la data della prenotazione 
 	public Date getData() {
-		return this.dataFesta;
+		return this.data;
 	}
 	
 	// Restituisce il nome del cliente 
 	public String getCliente () {
-		return this.nomeCliente;
+		return this.cliente;
 	}
-	
+	/****numero bambini invitati non necessario per affitto semplice del locale****/
 	//Metodo get che restituisce il numero dei bambini invitati
-		public int getNumeroBambini() {
-		    return this.bambini;
-		}
+	//	public int getNumeroBambini() {
+	//	    return this.bambini;
+	//	}
 	
 	// Restituisce forma di prenotazione
 	public String getformaPrenotazione () {
@@ -82,7 +85,8 @@ public class PrenotazioneLocale implements Serializable {
 	public void getDati() {
 		//qui bisogna usare i "get" da definire nella superclasse!!!
 		System.out.println("Prenotazione effettuata da:"+this.getCliente());
-		System.out.println("per "+ this.getNumeroBambini());
+		/****numero bambini invitati non necessario per affitto semplice del locale****/
+		//System.out.println("per "+ this.getNumeroBambini());
 		System.out.println(" invitati, per il giorno "+ this.getData());
 		System.out.println("La festa di compleanno include servizi di :"+this.getformaPrenotazione());//solo affitto, catering o catering e animazione
 	}

@@ -1,7 +1,8 @@
 package gestioneLocaleCompleanni;
 import java.util.Date;//classe per la data
+import java.io.Serializable;
 
-public class PrenotazioneCateringAnimazione extends PrenotazioneCatering{
+public class PrenotazioneCateringAnimazione extends PrenotazioneCatering implements Serializable{
 	//versione UID
 	static final long serialVersionUID=1;
 	//inizializzo la stringa tipo animazione
